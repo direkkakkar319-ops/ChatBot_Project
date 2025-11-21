@@ -2,8 +2,10 @@
 <html>
 
 <head>
+  <!-- Chat Bot UI built with React (via supersimpledev CDN) -->
   <title>Chat Bot</title>
   <style>
+    /* Reset and base typography */
     * {
       padding: 0;
       margin: 0;
@@ -16,6 +18,7 @@
       margin: 0;
     }
 
+    /* Message input and actions */
     .send-button {
       background-color: rgb(25, 135, 84);
       color: white;
@@ -35,6 +38,7 @@
       flex-grow: 1;
     }
 
+    /* Bottom input bar layout */
     .chat-input-container {
       display: flex;
       padding: 10px;
@@ -42,6 +46,7 @@
       margin-bottom: 60px;
     }
 
+    /* App container (unused in current layout) */
     .app-container {
       max-width: 600px;
       margin-left: auto;
@@ -52,6 +57,7 @@
       background: white;
     }
 
+    /* React mount container */
     .js-container {
       max-width: 600px;
       margin-left: auto;
@@ -62,6 +68,7 @@
       background: white;
     }
 
+    /* Outgoing (user) message row */
     .chat-message-user {
       display: flex;
       justify-content: flex-end;
@@ -69,6 +76,7 @@
       /* FIX */
     }
 
+    /* Incoming (robot) message row */
     .chat-message-robot {
       display: flex;
       justify-content: flex-start;
@@ -76,6 +84,7 @@
       /* FIX */
     }
 
+    /* Message bubble */
     .chat-message-text {
       background-color: rgb(238, 238, 238);
       border-radius: 10px;
@@ -87,6 +96,7 @@
       word-break: break-word;
     }
 
+    /* Avatar image */
     .chat-message-profile {
       width: 45px;
       height: 45px;
@@ -94,6 +104,7 @@
       object-fit: cover;
     }
 
+    /* Scrollable message list */
     .chat-messages-container {
       flex-grow: 1;
       padding: 10px;
@@ -114,13 +125,17 @@
   <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
 
   <script type="text/babel">
+    // ChatInput: captures user text and appends user + bot messages
     function ChatInput({ chatMessages, setChatMessages }) {
       const [inputText, setInputText] = React.useState('');
+      // Update controlled input state
       function saveInputText(event) {
         setInputText(event.target.value);
       }
 
+      // Send current input: add user message, get bot reply, clear input
       function sendMessage() {
+        // Append user message to the list
         const newChatMessages = [
           ...chatMessages,
           {
@@ -131,6 +146,7 @@
         ];
         setChatMessages(newChatMessages);
 
+        // Generate bot response and append it
         const response = Chatbot.getResponse(inputText);
         setChatMessages([
           ...newChatMessages,
@@ -141,6 +157,7 @@
           }
         ]);
 
+        // Reset input field
         setInputText('');
       }
       return (
@@ -160,6 +177,7 @@
       );
     }
 
+    // ChatMessage: renders a single message with optional avatar
     function ChatMessage({ message, sender }) {
       // const {message, sender} = props;
 
@@ -194,8 +212,10 @@
       );
 
     }
+    // ChatMessages: renders list and auto-scrolls to bottom on updates
     function ChatMessages({ chatMessages }) {
       const chatMessagesRef = React.useRef(null);
+      // Auto-scroll when the messages array changes
       React.useEffect(() => {
         const containerElem = chatMessagesRef.current
         if(containerElem){
@@ -219,7 +239,9 @@
         </div>
       );
     }
+    // App: top-level component holding message state and composing UI
     function App() {
+      // Seed with sample conversation
       const [chatMessages, setChatMessages] = React.useState([
 
 
@@ -248,6 +270,7 @@
       // const [chatMessages, setChatMessages]=array
       // const chatMessages = array[0];
       // const setChatMessages = array[1];
+      // Render messages list and input bar
       return (
         <>
 
@@ -263,6 +286,7 @@
     }
 
     const container = document.querySelector('.js-container');
+    // Mount React app into the page
     ReactDOM.createRoot(container).render(<App />);
   </script>
 </body>
