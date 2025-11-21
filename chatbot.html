@@ -218,7 +218,7 @@
       // Auto-scroll when the messages array changes
       React.useEffect(() => {
         const containerElem = chatMessagesRef.current
-        if(containerElem){
+        if (containerElem) {
           containerElem.scrollTop = containerElem.scrollHeight;
         }
         console.log("string update");
@@ -266,21 +266,10 @@
           id: 'id4'
         }
       ]);
-
-      // const [chatMessages, setChatMessages]=array
-      // const chatMessages = array[0];
-      // const setChatMessages = array[1];
-      // Render messages list and input bar
       return (
         <>
-
-          <ChatMessages
-            chatMessages={chatMessages}
-          />
-          <ChatInput
-            chatMessages={chatMessages}
-            setChatMessages={setChatMessages}
-          />
+          <ChatMessages chatMessages={chatMessages} />
+          <ChatInput chatMessages={chatMessages} setChatMessages={setChatMessages} />
         </>
       );
     }
