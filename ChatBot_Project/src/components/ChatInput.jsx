@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Chatbot } from 'supersimpledev'
-import './Chatinput.css';
+import './ChatInput.css';
 
 
 export function ChatInput({ chatMessages, setChatMessages }) {
